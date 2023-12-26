@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>fweigel.dev</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
+
+</head>
+<body style="background-image: url('images/jammy-jellyfish-wallpaper.jpg');   background-repeat: no-repeat;   background-size: 100% 100%;">
+<div id="terminal">
+    <header>
+        <div class="header-text">fweigel.dev</div>
+        <div class="button-group">
+            <button id="minimize-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#ffffff" viewBox="0 0 16 16">
+                    <rect width="8" height="1" x="4 " y="10" rx="1"/>
+                </svg>
+            </button>
+            <button id="maximize-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#ffffff" viewBox="0 0 16 16">
+                    <rect width="6" height="6" x="5" y="5" rx="1" fill="none" stroke="#ffffff"/>
+                </svg>
+            </button>
+            <button id="close-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#ffffff" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+    <div id="terminal-window">
+        <div id="terminal-output">
+          <pre id="ascii-art">  __              _            _        _
+ / _|_      _____(_) __ _  ___| |    __| | _____   __
+| |_\ \ /\ / / _ \ |/ _` |/ _ \ |   / _` |/ _ \ \ / /
+|  _|\ V  V /  __/ | (_| |  __/ |  | (_| |  __/\ V /
+|_|   \_/\_/ \___|_|\__, |\___|_| (_)__,_|\___| \_/
+                    |___/</pre>
+            <div class="welcome-message"><div>Type help to get started.</div>
+            </div><div id="dynamic-content"><div id="terminal-input"><span class="prompt">user@local:~$</span>
+                    <input type="text" id="command-input" autofocus>
+                </div>
+            </div>
+            <div id="dynamic-content">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ubuntu-app-bar">
+    <div class="app-icon firefox-icon"></div>
+    <div class="app-icon files-icon"></div>
+    <div class="app-icon software-icon"></div>
+    <div class="app-icon calculator-icon"></div>
+    <div class="app-icon video-icon"></div>
+    <div class="app-icon active open terminal-icon"></div>
+    <div class="app-icon trash-icon"></div>
+</div>
+
+<script type="module" src="js/app.js"></script>
+<script type="module" src="js/window-manager.js"></script>
+</body>
+</html>
