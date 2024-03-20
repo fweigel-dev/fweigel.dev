@@ -1,4 +1,4 @@
-import commands from "./commands.js";
+import { commands, currentDirectory } from "./commands.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const elements = {

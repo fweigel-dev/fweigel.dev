@@ -1,3 +1,78 @@
+const fileSystem = {
+    root: {
+        name: '/',
+        children: {
+            etc: {
+                name: 'etc',
+                parent: '/',
+                children: {
+                    'passwd': 'User account information.',
+                    'shadow': 'Secure user account information.',
+                    'hosts': 'Host names and IP addresses.',
+                },
+            },
+            home: {
+                name: 'home',
+                parent: '/',
+                children: {
+                    user: {
+                        name: 'user',
+                        parent: 'home',
+                        children: {
+                            'file1.txt': 'Content of file1.txt',
+                            'file2.txt': 'Content of file2.txt',
+                        },
+                    },
+                },
+            },
+            var: {
+                name: 'var',
+                parent: '/',
+                children: {
+                    log: {
+                        name: 'log',
+                        parent: 'var',
+                        children: {
+                            'syslog': 'System log file.',
+                            'auth.log': 'User authentication log.',
+                        },
+                    },
+                },
+            },
+            usr: {
+                name: 'usr',
+                parent: '/',
+                children: {
+                    bin: {
+                        name: 'bin',
+                        parent: 'usr',
+                        children: {
+                            'python': 'Python interpreter.',
+                            'node': 'Node.js runtime.',
+                        },
+                    },
+                    lib: {
+                        name: 'lib',
+                        parent: 'usr',
+                        children: {},
+                    },
+                },
+            },
+            dev: {
+                name: 'dev',
+                parent: '/',
+                children: {
+                    'null': 'Null device, discards all input.',
+                    'zero': 'Zero device, produces null bytes when read.',
+                },
+            },
+        },
+    },
+};
+
+let currentDirectory = fileSystem.root.children.home.children.user;
+
+
 const commands = {
     help: function () {
         return `
@@ -41,7 +116,8 @@ Enjoy your freshly brewed code-enhancing beverage!
         } else if (username === undefined) {
             return 'Whoops! You forgot to type a username.';
         } else {
-            return `Hmm, "${username}"... Nope, doesn't ring a bell.`;        }
+            return `Hmm, "${username}"... Nope, doesn't ring a bell.`;
+        }
     },
 
     social: function () {
@@ -112,9 +188,56 @@ Enjoy your freshly brewed code-enhancing beverage!
     nano: function () {
         return '<span class="highlight-command">nano</span> not installed. try <span class="highlight-command">vi</span>.';
     },
+    cd: function (dir) {
+        if (dir === '..') {
+            if (currentDirectory.parent) {
+                let parentPath = currentDirectory.parent.split('/');
+                let parent = fileSystem.root;
+                for (let i = 1; i < parentPath.length; i++) {
+                    parent = parent.children[parentPath[i]];
+                }
+                currentDirectory = parent;
+                return `Changed directory to ${currentDirectory.name}`;
+            } else {
+                return 'Already at root directory.';
+            }
+        } else if (currentDirectory.children[dir]) {
+            currentDirectory = currentDirectory.children[dir];
+            return `Changed directory to ${dir}`;
+        } else {
+            return `Directory "${dir}" not found.`;
+        }
+    },
 
+    ls: function () {
+        return Object.keys(currentDirectory.children).join('\n');
+    },
 
+    rm: function (flag, name) {
+        if (flag === '-r') {
+            const item = currentDirectory.children[name];
+            if (item) {
+                delete currentDirectory.children[name];
+                return `Removed ${name}`;
+            } else {
+                return `File or directory "${name}" not found.`;
+            }
+        } else {
+            const item = currentDirectory.children[flag];
+            if (item) {
+                if (typeof item === 'string') {
+                    delete currentDirectory.children[flag];
+                    return `Removed file ${flag}`;
+                } else {
+                    return `Cannot remove "${flag}": Is a directory`;
+                }
+            } else {
+                return `File "${flag}" not found.`;
+            }
+        }
+    },
 
 };
 
-export default commands;
+
+export {commands, currentDirectory};
